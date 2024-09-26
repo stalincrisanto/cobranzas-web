@@ -13,21 +13,11 @@ export class ClientService {
 
   getClientById(idClient: string): Observable<Client | null> {
     const url = `${this.apiUrl}/${idClient}`;
-    return this.http.get<Client>(url).pipe(catchError(this.handleError));
-  }
-
-  private handleError(error: HttpErrorResponse) {
-    if (error.status === 404) {
-      return throwError(
-        () => new Error('El cliente no se encuentra en la base de datos.')
-      );
-    } else {
-      return throwError(
-        () =>
-          new Error(
-            'Ha ocurrido un error inesperado. Por favor, intenta más tarde.'
-          )
-      );
-    }
+    return this.http.get<Client>(url).pipe(
+      catchError((error: HttpErrorResponse) => {
+        console.error('Error al buscar el cliente', error);
+        return of(null);
+      })
+    );
   }
 }

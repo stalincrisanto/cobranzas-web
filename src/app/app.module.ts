@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { PaymentIntentionComponent } from './components/payment-intention/payment-intention.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { ToastrModule } from 'ngx-toastr';
     HttpClientModule,
     FormsModule,
     AppRoutingModule,
+    BrowserAnimationsModule,
     ToastrModule.forRoot()
   ],
   providers: [],

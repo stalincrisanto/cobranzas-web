@@ -22,7 +22,12 @@ export class ClientSearchComponent {
   searchClient() {
     this.clientService.getClientById(this.identityCard).subscribe({
       next: (data) => {
-        this.client = data;
+        if (data) {
+          this.client = data;
+        } else {
+          this.client = null;
+          this.toastr.error('Cliente no encontrado. Intente nuevamente.', 'Error');
+        }
       },
     });
   }
