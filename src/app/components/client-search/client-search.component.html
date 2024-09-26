@@ -1,1 +1,63 @@
-<p>client-search works!</p>
+<div class="container mt-5">
+  <h3 class="text-center">Convenios de pago</h3>
+
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <form (ngSubmit)="searchClient()">
+        <div class="mb-3">
+          <label for="identityCard" class="form-label"
+            >Buscar usuario por número de cédula</label
+          >
+          <input
+            type="text"
+            id="identityCard"
+            [(ngModel)]="identityCard"
+            name="identityCard"
+            class="form-control"
+            required
+          />
+        </div>
+        <button type="submit" class="btn btn-primary">Buscar</button>
+      </form>
+
+      <div *ngIf="client" class="mt-4">
+        <hr />
+        <h5>Detalles del Usuario</h5>
+        <div class="row">
+          <div class="col-md-6">
+            <p><strong>Nombres:</strong> {{ client.name }}</p>
+            <p><strong>Email:</strong> {{ client.email }}</p>
+          </div>
+          <div class="col-md-6">
+            <p><strong>Apellidos:</strong> {{ client.lastName }}</p>
+            <p><strong>Teléfono:</strong> {{ client.phone }}</p>
+          </div>
+        </div>
+        <hr />
+        <h5>Detalles de la deuda</h5>
+        <div class="row">
+          <div class="col-md-6">
+            <p><strong>Total:</strong> {{ client.debt.totalValue }}</p>
+          </div>
+          <div class="col-md-6">
+            <p><strong>Días vencidos:</strong> {{ client.debt.expiredDays }}</p>
+          </div>
+        </div>
+
+        <div class="text-center mt-3">
+          <!-- Centrar el botón -->
+          <button class="btn btn-success" (click)="openPaymentModal()">
+            Registrar Intención de Pago
+          </button>
+        </div>
+      </div>
+      <!-- Modal -->
+      <app-payment-intention
+        *ngIf="showPaymentModal"
+        (closeModal)="closePaymentModal()"
+        [client]="client"
+        [totalAmount]="client?.debt?.totalValue"
+      ></app-payment-intention>
+    </div>
+  </div>
+</div>
